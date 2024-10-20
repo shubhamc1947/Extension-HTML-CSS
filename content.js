@@ -1,21 +1,38 @@
-(async function() {
-    // Wait until all network requests are complete
+(async function () {
+    // Wait a little to ensure dynamic content is fully loaded
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    // Extract the HTML
+    // Function to convert relative URLs to absolute URLs
+    function convertToAbsoluteUrl(url) {
+        const a = document.createElement('a');
+        a.href = url;
+        return a.href;
+    }
+
+    // Convert all image sources to absolute URLs
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        if (img.src) {
+            img.src = convertToAbsoluteUrl(img.src);
+        }
+    });
+
+    // Extract the HTML content
     const html = document.documentElement.outerHTML;
 
-    // Extract all CSS, including dynamically loaded and cross-origin styles
+    // Initialize a variable to store all the CSS
     let css = '';
+
+    // Iterate over each stylesheet
     for (const sheet of Array.from(document.styleSheets)) {
         try {
+            // If the stylesheet is external, try fetching it
             if (sheet.href) {
-                // Fetch cross-origin stylesheets
                 const response = await fetch(sheet.href);
                 const text = await response.text();
                 css += text;
             } else {
-                // Inline styles or style tags
+                // If it's an inline style or internal style, add the rules directly
                 for (const rule of sheet.cssRules) {
                     css += rule.cssText;
                 }
