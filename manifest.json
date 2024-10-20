@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Advanced HTML & CSS Extractor",
+  "version": "1.0",
+  "description": "Extract HTML and CSS from the current page with dynamic content support.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  }
+}
