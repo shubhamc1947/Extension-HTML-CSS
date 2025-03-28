@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Advanced HTML & CSS Extractor",
+  "name": "SourceSnap",
   "version": "1.0",
   "description": "Extract HTML and CSS from the current page with dynamic content support.",
   "permissions": [
